@@ -1,0 +1,23 @@
+{% extends "tracker/base.html" %}
+
+{% block title %}
+Login Here
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 50vh">
+	<div class="shadow p-3 mb-5 bg-white rounded">
+		<div class="col-md-6" style='max-width: 350px'>
+			<form method="post" class="from-group" id='login-form'>
+			{% csrf_token %}
+			{{form|crispy}}
+			<p>Don't have an accoount? Create one <a href="/signup">here</a></p>
+			<button type="submit" class="btn btn-success">Login</button>	
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

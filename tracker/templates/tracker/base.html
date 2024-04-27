@@ -1,0 +1,130 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#course_table').DataTable({lengthMenu:[5,10,15,20]});
+        });
+        $(document).ready( function () {
+            $('#trending_table').DataTable({lengthMenu:[5,10,15,20]});
+        });
+        
+    </script>
+    <script>
+      function addToCart(course_id){
+          $.ajax({
+              url: '/add-to-cart/',
+              method:'GET',
+              data: {
+                  'course_id': course_id
+              },
+              dataType: 'json',
+              success: function(data) {
+                  var table = $('#course_table').DataTable();
+                  var row = table.row($('tr[data-id="' + course_id + '"]'));
+                  //if a row is found
+                  if (row.any()){
+                      var rowData = row.data();
+                      rowData[4] = data.demand;
+                      rowData[5] = data.priorities[0] + ' - ' + data.priorities[1] + ' - ' + data.priorities[2] + ' - ' + data.priorities[3];
+
+                      row.data(rowData).draw();
+                  }
+                  $('tr[data-id="' + course_id + '"] .cart-button').html('<button class="btn btn-danger btn-sm" onclick="removeFromCart(\'' + course_id + '\')">Remove from Cart</button>');
+              },
+              error: function(xhr, status, error) {
+                  //console.error(xhr.responseText);
+                  if (xhr.status == 403) {
+                      alert('You need to log in to add courses to your cart.');
+                  }
+              }
+          });
+      }
+      function removeFromCart(course_id){
+          $.ajax({
+              url: '/remove-from-cart/',
+              method:'GET',
+              data: {
+                  'course_id': course_id
+              },
+              dataType: 'json',
+              success: function(data) {
+                  var table = $('#course_table').DataTable();
+                  var row = table.row($('tr[data-id="' + course_id + '"]'));
+                  //if a row is found
+                  if (row.any()){
+                      var rowData = row.data();
+                      rowData[4] = data.demand;
+                      rowData[5] = data.priorities[0] + ' - ' + data.priorities[1] + ' - ' + data.priorities[2] + ' - ' + data.priorities[3];
+                      row.data(rowData).draw();
+                  }
+                  $('tr[data-id="' + course_id + '"] .cart-button').html('<button class="btn btn-primary btn-sm" onclick="addToCart(\'' + course_id + '\')">Add to Cart</button>');
+
+              },
+              error: function(xhr, status, error) {
+                  //console.error(xhr.responseText);
+                  if (xhr.status == 403) {
+                      alert('You need to log in to add courses to your cart.');
+                  }
+              }
+          });
+      }
+  </script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <!--  Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <!-- DataTables CSS -->
+        <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container-fluid">
+              <!-- Navbar brand and toggle button for mobile -->
+              <a class="navbar-brand" href="/">Home</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <!-- Navbar links -->
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                  <!-- Catalog link -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Catalog</a>
+                  </li>
+                </ul>
+                <ul class='nav navbar-nav ms-auto w-100 justify-content-end'>
+                    <!-- Authentication status and welcome message -->
+                    {% if user.is_authenticated %}
+                    <!-- If user is logged in -->
+                    <li class="nav-item">
+                        <span class="navbar-text me-3"><a class="nav-link" href="{% url 'profile' %}" >Welcome, {{ user.username }}</a></span>
+                        <span class="navbar-text me-3"><a class="nav-link" href="{% url 'logout' %}">Log out</a></span>
+                    </li>
+                    {% else %}
+                    <!-- If user is not logged in -->
+                    <li class="nav-item">
+                        <a class="btn btn-success" href="/login" role="button">Log in</a>
+                        <a class="btn btn-success" href="/signup" role="button">Sign up</a>
+                    </li>
+                    {% endif %}
+                </ul>
+              </div>
+            </div>
+          </nav>
+          
+        <div id="content" name="content" style='padding-top: 50px'>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+
+</html>
