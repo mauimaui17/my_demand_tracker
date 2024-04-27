@@ -107,14 +107,7 @@ elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
-            'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db',
-        'USER': 'db',
-        'PASSWORD': 'AVNS_AUz9rW4dcy7CnjwSEzO',
-        'HOST': 'app-033e532e-1aef-41a9-a485-f0e88bee4af2-do-user-16402249-0.c.db.ondigitalocean.com',
-        'PORT': '25060',
-        }
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
     }
 AUTH_USER_MODEL = 'tracker.Student'
 # Password validation
