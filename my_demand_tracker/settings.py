@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
 import sys
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -84,17 +85,37 @@ WSGI_APPLICATION = 'my_demand_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'db',
+#         'USER': 'db',
+#         'PASSWORD': 'AVNS_AUz9rW4dcy7CnjwSEzO',
+#         'HOST': 'app-033e532e-1aef-41a9-a485-f0e88bee4af2-do-user-16402249-0.c.db.ondigitalocean.com',
+#         'PORT': '25060',
+#     }
+# }
+
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+            'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'db',
         'USER': 'db',
         'PASSWORD': 'AVNS_AUz9rW4dcy7CnjwSEzO',
         'HOST': 'app-033e532e-1aef-41a9-a485-f0e88bee4af2-do-user-16402249-0.c.db.ondigitalocean.com',
         'PORT': '25060',
+        }
     }
-}
-
 AUTH_USER_MODEL = 'tracker.Student'
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
