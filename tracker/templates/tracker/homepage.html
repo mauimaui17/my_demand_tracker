@@ -20,10 +20,7 @@
                                     <tr>
                                         <th>Course Code</th>
                                         <th>Course Title</th>
-                                        <th>Course Description</th>
                                         <th>Demand</th>
-                                        <th>Breakdown (High-Low Prio)</th>
-                                        <th>Is Elective</th>
                                         <!-- Add additional columns if needed -->
                                     </tr>
                                 </thead>
@@ -32,16 +29,7 @@
                                     <tr data-id ="{{ course.id }}">
                                         <td align='center'>{{ course.subject_code.subject_code }} {{course.course_code}}</td>
                                         <td align='center'>{{ course.course_title }}</td>
-                                        <td>{{ course.course_description }}</td>
                                         <td align='center'>{{ course.demand }}</td>
-                                        <td align='center'>{{ course.first_prio }} - {{ course.second_prio }} - {{ course.third_prio }} - {{ course.fourth_prio }}</td>
-                                        <td align='center'>
-                                            {%if course.is_elective %}
-                                                Elective
-                                            {% else %}
-                                                Not Elective
-                                            {% endif %}
-                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
