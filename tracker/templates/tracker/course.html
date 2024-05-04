@@ -3,38 +3,68 @@
 <!-- +From which departments, so we need pie charts here-->
 <!-- IF WE CAN EXTRACT MORE DATA FROM AMIS/SAIS? -->
 
-{% block title %}
-{{course.course_title}}
-{% endblock %}
+{% block title %} {{course.course_title}} {% endblock %} {% load
+crispy_forms_tags %} {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container" id="catalog-container">
+  <div class="column">
+    <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+      <div class="row p-3">
+        <div class="col"><b> Course Title: </b> {{course.course_title}}</div>
 
-{% load crispy_forms_tags %}
+        <div class="col"><b>Demand:</b> {{users|length}}</div>
+        <div class="row p-3">
+          <div class="col">
+            <b>Course Description</b> {{course.course_description}}
+          </div>
+          <div class="col"></div>
+          <div class="col">
+            <canvas id="pieChart" width="400" height="400"></canvas>
 
-{% block content %}
-<div class="container" id='catalog-container'>
-    <div class = 'column'>
-        <div class='container-fluid shadow p-3 mb-5 bg-white rounded'>
-            <div class='row p-3'>
-                <div class="col">
-                    <b> Course Title: </b> {{course.course_title}}
-                </div>
+            <script>
+              const breakdownData = JSON.parse("{{ breakdown | escapejs }}");
 
-                <div class="col">
-                    <b>Demand:</b> {{users|length}}
-                </div>
-            <div class='row p-3'>
-                <div class="col">
-                    <b>Course Description</b> {{course.course_description}}
-                </div>
-                <div class="col">
-                    <b>Breakdown</b> {{breakdown}}
-                </div>
-                <div class="col">
-                    
-                </div>
-            </div>
+              const ctx = document.getElementById("pieChart").getContext("2d");
+
+              const pieChart = new Chart(ctx, {
+                type: "pie",
+                data: {
+                  labels: Object.keys(breakdownData),
+                  datasets: [
+                    {
+                      label: "Degree Programs",
+                      data: Object.values(breakdownData),
+                      backgroundColor: [
+                        "rgba(255, 99, 132, 0.5)",
+                        "rgba(54, 162, 235, 0.5)",
+                        "rgba(255, 206, 86, 0.5)",
+                        "rgba(75, 192, 192, 0.5)",
+                        "rgba(153, 102, 255, 0.5)",
+                        "rgba(255, 159, 64, 0.5)",
+                      ],
+                      borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)",
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                },
+                options: {
+                  // Add options here, if needed
+                },
+              });
+            </script>
+          </div>
         </div>
-
+      </div>
+      <div></div>
     </div>
-</div>
+  </div>
 
-{% endblock %}
+  {% endblock %}
+</div>
