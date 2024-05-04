@@ -3,39 +3,57 @@
 <!-- +From which departments, so we need pie charts here-->
 <!-- IF WE CAN EXTRACT MORE DATA FROM AMIS/SAIS? -->
 
-{% block title %}
-{{course.course_title}}
-{% endblock %}
-
-{% load crispy_forms_tags %}
-
-{% block content %}
+{% block title %} {{course.course_title}} {% endblock %} {% load
+crispy_forms_tags %} {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div class="container" id='catalog-container'>
-    <div class = 'column'>
-        <div class='container-fluid shadow p-3 mb-5 bg-white rounded'>
-            <div class='row p-3'>
-                <div class="col">
-                    <b> Course Title: </b> {{course.course_title}}
-                </div>
+<div class="container" id="catalog-container">
+  <div class="column">
+    <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+      <div class="row p-3">
+        <div class="col"><b> Course Title: </b> {{course.course_title}}</div>
 
-                <div class="col">
-                    <b>Demand:</b> {{users|length}}
-                </div>
-            <div class='row p-3'>
-                <div class="col">
-                    <b>Course Description</b> {{course.course_description}}
-                </div>
-                <div class="col">
-                    <b>Breakdown</b> {{breakdown}}
-                </div>
-                <div class="col">
-                    
-                </div>
-            </div>
+        <div class="col"><b>Demand:</b> {{users|length}}</div>
+        <div class="row p-3">
+          <div class="col">
+            <b>Course Description</b> {{course.course_description}}
+          </div>
+          <div class="col"><b>Breakdown</b> {{breakdown}}</div>
+          <div class="col"></div>
         </div>
-
+      </div>
     </div>
-</div>
+  </div>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
 
-{% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const ctx = document.getElementById("myChart");
+    const labels = Object.keys(breakdownData);
+    const data = Object.values(breakdownData);
+    new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Demand Breakdown",
+            data: data,
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+
+  {% endblock %}
+</div>
