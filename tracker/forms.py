@@ -12,10 +12,10 @@ class RegisterForm(UserCreationForm):
         message='Student ID must be in the format 20XX-XXXX',
         code='invalid_student_id'
     )], label='Student ID (20XX-XXXXX)')
-    deg_prog = forms.ModelChoiceField(queryset=DegreeProgram.objects.all(), label='Degree Program')
+    student_deg_prog = forms.ModelChoiceField(queryset=DegreeProgram.objects.all(), label='Degree Program')
     class Meta:
         model = Student
-        fields = ["first_name", "last_name", "email", "password1", "password2", "student_id",'deg_prog']
+        fields = ["first_name", "last_name", "email", "password1", "password2", "student_id",'student_deg_prog']
         labels = {
             'first_name': 'First Name',
             'last_name': 'Last Name',
@@ -23,7 +23,7 @@ class RegisterForm(UserCreationForm):
             'password1': 'Password',
             'password2': 'Confirm Password',
             'student_id': 'Student ID (20XX-XXXXX)',
-            'deg_prog': 'Degree Program'
+            'student_deg_prog': 'Degree Program'
         }
     #checks if the student id is valid.
     def clean_student_id(self):

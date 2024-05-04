@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import Course, Student
+from .models import Course, Student, DegreeProgram
 from .forms import RegisterForm
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -37,8 +37,8 @@ def coursepage(request):
         return render(request, 'tracker/course.html', {'course': course, 'users': deg_prog_pop})
     except Exception as e:
         error_message = f"Error: {str(e)}"  # Ensure error_message is properly formatted
-        #return HttpResponse("<script>alert('An error occured.'); window.location.href='/';</script>")
-        return JsonResponse({"message": error_message})
+        return HttpResponse("<script>alert('An error occured.'); window.location.href='/';</script>")
+        #return JsonResponse({"message": error_message})
     except Course.DoesNotExist:
         return HttpResponse("<script>alert('Course not found');  window.location.href='/';</script>")
 def profile(request):
@@ -113,7 +113,9 @@ def signup(request):
                     student.priority_level = 3
                 elif prio <= 1:
                     student.priority_level = 4
+                student.deg_prog = DegreeProgram.objects.get(degree_title=student.student_deg_prog)
                 student.save()
+                
                 return redirect("/")
             except IntegrityError:
                 # Handle duplicate student ID error
