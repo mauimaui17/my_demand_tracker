@@ -35,7 +35,7 @@ def coursepage(request):
         course_id = request.GET.get('course_id')
         course = Course.objects.get(id= course_id)
         deg_prog_pop = Student.objects.filter(shopping_cart__id=course_id)
-        breakdown = defaultdict(int)
+        breakdown = {}
 
         # Assuming 'course_id' is the ID of the course you're interested in
         # Query the Student model to get the count of students for each degree program
