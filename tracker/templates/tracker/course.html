@@ -50,7 +50,7 @@ crispy_forms_tags %} {% block content %}
     const data = Object.values(breakdownData);
     if (data.length === 0) {
         // Display a message or take appropriate action when there is no data
-        ctx.innerHTML = "No data available";
+        ctx.fillText("No Data Available",10,80);
     } else {
         new Chart(ctx, {
         type: "doughnut",
@@ -87,7 +87,8 @@ crispy_forms_tags %} {% block content %}
     const data2 = [{{course.first_prio}}, {{course.second_prio}}, {{course.third_prio}}, {{course.fourth_prio}}];
     if (data2[0] + data2[1] + data2[2] + data2[3] === 0) {
         // Display a message or take appropriate action when there is no data
-        ctx.innerHTML = "No data available";
+        ctx.fillText("No Data Available",10,80);
+
     } else {
     new Chart(ctx2, {
       type: "doughnut",
