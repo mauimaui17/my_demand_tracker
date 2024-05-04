@@ -29,12 +29,12 @@ crispy_forms_tags %} {% block content %}
       </div>
     </div>
   </div>
-  <div class="container-fluid shadow mb-5 bg-white rounded">
+  <div class="container">
     <div class="row p-2">
-        <div class="col">
+        <div class="col-fluid shadow mb-5 bg-white rounded">
             <canvas id="degreeProgramsChart"  style="width: 50%; height: 50%"></canvas>
         </div>
-        <div class="col">
+        <div class="col-fluid shadow mb-5 bg-white rounded">
             <canvas id="demandBreakdown"  style="width: 50%; height: 50%"></canvas>
         </div>
     </div>
@@ -78,7 +78,7 @@ crispy_forms_tags %} {% block content %}
   </script>
   <script>
     const ctx2 = document.getElementById("demandBreakdown");
-    const labels2 = ['First', 'Second', 'Third', 'Fourth' ];
+    const labels2 = ['First Prio', 'Second Prio', 'Third Prio', 'Fourth Prio' ];
     const data2 = [{{course.first_prio}}, {{course.second_prio}}, {{course.third_prio}}, {{course.fourth_prio}}];
     new Chart(ctx2, {
       type: "doughnut",
@@ -101,7 +101,11 @@ crispy_forms_tags %} {% block content %}
                 font: {
                     size: 16
                 }
+            },
+            legend: {
+                position: 'right' // or 'right'
             }
+        }
         }
     }
     });
