@@ -37,7 +37,7 @@ def coursepage(request):
         return render(request, 'tracker/course.html', {'course': course, 'users': deg_prog_pop})
     except Exception as e:
         error_message = f"Error: {str(e)}"
-        return HttpResponse("<script>alert('No course ID supplied OR {error_message}'); window.location.href='/';</script>")
+        return HttpResponse(f"<script>alert('No course ID supplied OR {error_message}'); window.location.href='/';</script>")
     except Course.DoesNotExist:
         return HttpResponse("<script>alert('Course not found');  window.location.href='/';</script>")
 def profile(request):
