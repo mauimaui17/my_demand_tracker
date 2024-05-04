@@ -36,7 +36,7 @@ def coursepage(request):
         deg_prog_pop = Student.objects.filter(shopping_cart__id=course_id)
         return render(request, 'tracker/course.html', {'course': course, 'users': deg_prog_pop})
     except Exception as e:
-        error_message = f"Error: {str(e)}"
+        error_message = f"Error: {str(e)}"  # Ensure error_message is properly formatted
         return HttpResponse(f"<script>alert('{error_message}'); window.location.href='/';</script>")
     except Course.DoesNotExist:
         return HttpResponse("<script>alert('Course not found');  window.location.href='/';</script>")
