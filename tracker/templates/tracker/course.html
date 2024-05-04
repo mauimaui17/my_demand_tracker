@@ -29,7 +29,7 @@ crispy_forms_tags %} {% block content %}
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container-fluid shadow mb-5 bg-white rounded">
     <div class="row p-2">
         <div class="col">
             <canvas id="degreeProgramsChart"  style="width: 50%; height: 50%"></canvas>
@@ -59,7 +59,21 @@ crispy_forms_tags %} {% block content %}
             borderWidth: 1,
           },
         ],
-      }
+      },
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Degree Programs',
+                font: {
+                    size: 16
+                }
+            },
+            legend: {
+                position: 'left' // or 'right'
+            }
+        }
+    }
     });
   </script>
   <script>
@@ -76,8 +90,20 @@ crispy_forms_tags %} {% block content %}
             data: data2,
             borderWidth: 1,
           },
+          
         ],
-      }
+      },
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'My Chart Title',
+                font: {
+                    size: 16
+                }
+            }
+        }
+    }
     });
   </script>
   {% endblock %}
