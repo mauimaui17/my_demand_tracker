@@ -31,6 +31,7 @@ crispy_forms_tags %} {% block content %}
 
   <script>
     const ctx = document.getElementById("myChart");
+    const breakdownData = {{breakdown}};
     const labels = Object.keys(breakdownData);
     const data = Object.values(breakdownData);
     new Chart(ctx, {
