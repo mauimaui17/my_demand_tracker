@@ -32,7 +32,7 @@ def homepage(request):
 def coursepage(request):
     try: 
         course_id = request.GET.get('course_id')
-        course = Course.objects.query(course_id= course_id)
+        course = Course.objects.get(id= course_id)
         deg_prog_pop = Student.objects.filter(shopping_cart__id=course_id)
         return render(request, 'tracker/course.html', {'course': course, 'users': deg_prog_pop})
     except Exception as e:
