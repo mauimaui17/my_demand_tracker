@@ -76,7 +76,7 @@ crispy_forms_tags %} {% block content %}
   <script>
     const ctx2 = document.getElementById("demandBreakdown");
     const labels2 = ['First', 'Second', 'Third', 'Fourth' ];
-    const data2 = [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio];
+    const data2 = [{{course.first_prio}}, {{course.second_prio}}, {{course.third_prio}}, {{course.fourth_prio}}];
     new Chart(ctx2, {
       type: "doughnut",
       data: {
