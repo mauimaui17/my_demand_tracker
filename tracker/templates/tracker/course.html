@@ -48,38 +48,47 @@ crispy_forms_tags %} {% block content %}
     const breakdownData = {{breakdown | safe}};
     const labels = Object.keys(breakdownData);
     const data = Object.values(breakdownData);
-    new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Demand Breakdown",
-            data: data,
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        plugins: {
-            title: {
-                display: true,
-                text: 'Degree Programs',
-                font: {
-                    size: 16
-                }
+    if (data.length === 0) {
+        // Display a message or take appropriate action when there is no data
+        ctx.innerHTML = "No data available";
+    } else {
+        new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: labels,
+            datasets: [
+            {
+                label: "Demand Breakdown",
+                data: data,
+                borderWidth: 1,
             },
-            legend: {
-                position: 'left' // or 'right'
+            ],
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Degree Programs',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    position: 'left' // or 'right'
+                }
             }
         }
+        });
     }
-    });
   </script>
   <script>
     const ctx2 = document.getElementById("demandBreakdown");
     const labels2 = ['First Prio', 'Second Prio', 'Third Prio', 'Fourth Prio' ];
     const data2 = [{{course.first_prio}}, {{course.second_prio}}, {{course.third_prio}}, {{course.fourth_prio}}];
+    if (data2[0] + data2[1] + data2[2] + data2[3] === 0) {
+        // Display a message or take appropriate action when there is no data
+        ctx.innerHTML = "No data available";
+    } else {
     new Chart(ctx2, {
       type: "doughnut",
       data: {
@@ -108,6 +117,7 @@ crispy_forms_tags %} {% block content %}
         }
     }
     });
+}
   </script>
   {% endblock %}
 </div>
