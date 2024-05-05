@@ -13,11 +13,8 @@ crispy_forms_tags %} {% block content %}
         <div class="col"><b> Course Title: </b> {{course.course_title}}</div>
         <div class="col"><b>Demand:</b> {{users|length}}</div>
         <div class="col">
-            {%if course.is_elective %}
-                Elective
-            {% else %}
-                Not Elective
-            {% endif %}
+          {%if course.is_elective %} Elective {% else %} Not Elective {% endif
+          %}
         </div>
       </div>
       <div class="row p-3">
@@ -31,16 +28,18 @@ crispy_forms_tags %} {% block content %}
   </div>
   <div class="container-fluid mb-5 shadow bg-white rounded">
     <div class="row p-2">
-        <div class="col">
-            <canvas id="degreeProgramsChart"  style="width: 50%; height: 50%"></canvas>
-        </div>
-        <div class="col">
-            <canvas id="demandBreakdown"  style="width: 50%; height: 50%"></canvas>
-        </div>
+      <div class="col">
+        <canvas
+          id="degreeProgramsChart"
+          style="width: 50%; height: 50%"
+        ></canvas>
+      </div>
+      <div class="col">
+        <canvas id="demandBreakdown" style="width: 50%; height: 50%"></canvas>
+      </div>
     </div>
   </div>
 
-  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
@@ -48,10 +47,20 @@ crispy_forms_tags %} {% block content %}
     const breakdownData = {{breakdown | safe}};
     const labels = Object.keys(breakdownData);
     const data = Object.values(breakdownData);
-    if (data.length === 0) {
-        // Display a message or take appropriate action when there is no data
-        ctx.fillText("No Data Available",10,80);
-    } else {
+    Chart.plugins.register({
+        afterDraw: chart => {
+          if (chart.data.datasets[0].data.length === 0) {
+            var ctx = chart.chart.ctx;
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = "22px Arial";
+            ctx.fillStyle = "gray";
+            ctx.fillText('No data available', chart.chart.width / 2, chart.chart.height / 2);
+            ctx.restore();
+          }
+        }
+      });
         new Chart(ctx, {
         type: "doughnut",
         data: {
@@ -79,17 +88,11 @@ crispy_forms_tags %} {% block content %}
             }
         }
         });
-    }
   </script>
   <script>
     const ctx2 = document.getElementById("demandBreakdown");
     const labels2 = ['First Prio', 'Second Prio', 'Third Prio', 'Fourth Prio' ];
     const data2 = [{{course.first_prio}}, {{course.second_prio}}, {{course.third_prio}}, {{course.fourth_prio}}];
-    if (data2[0] + data2[1] + data2[2] + data2[3] === 0) {
-        // Display a message or take appropriate action when there is no data
-        ctx.fillText("No Data Available",10,80);
-
-    } else {
     new Chart(ctx2, {
       type: "doughnut",
       data: {
@@ -100,7 +103,7 @@ crispy_forms_tags %} {% block content %}
             data: data2,
             borderWidth: 1,
           },
-          
+
         ],
       },
       options: {
@@ -118,7 +121,6 @@ crispy_forms_tags %} {% block content %}
         }
     }
     });
-}
   </script>
   {% endblock %}
 </div>
