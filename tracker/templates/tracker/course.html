@@ -13,8 +13,7 @@ crispy_forms_tags %} {% block content %}
         <div class="col"><b> Course Title: </b> {{course.course_title}}</div>
         <div class="col"><b>Demand:</b> {{users|length}}</div>
         <div class="col">
-          {%if course.is_elective %} Elective {% else %} Not Elective {% endif
-          %}
+          {%if course.is_elective %} Elective {% else %} Not Elective {% endif %}
         </div>
       </div>
       <div class="row p-3">
@@ -96,7 +95,7 @@ crispy_forms_tags %} {% block content %}
         plugins: {
             title: {
                 display: true,
-                text: 'My Chart Title',
+                text: 'Priority Breakdown',
                 font: {
                     size: 16
                 }
