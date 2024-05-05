@@ -43,6 +43,7 @@ crispy_forms_tags %} {% block content %}
 
   <script>
     Chart.register({
+        id: 'emptyChart',
         afterDraw: function(chart) {
           if (chart.data.datasets.length === 0) {
             // No data is present
