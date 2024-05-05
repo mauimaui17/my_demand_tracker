@@ -61,21 +61,22 @@ crispy_forms_tags %} {% block content %}
       }
     });
     
-    const ctx = document.getElementById("degreeProgramsChart").getContext('2d');
-    const breakdownData = {{breakdown | safe}};
-    const labels = Object.keys(breakdownData);
-    const data = Object.values(breakdownData);
+       // Wrap chart initialization inside a function
+       function initializeChart() {
+        const ctx = document.getElementById("degreeProgramsChart").getContext('2d');
+        const breakdownData = {{ breakdown | safe }};
+        const labels = Object.keys(breakdownData);
+        const data = Object.values(breakdownData);
+
         new Chart(ctx, {
             type: "doughnut",
             data: {
                 labels: labels,
-                datasets: [
-                {
+                datasets: [{
                     label: "Demand Breakdown",
                     data: data,
                     borderWidth: 1,
-                },
-                ],
+                }],
             },
             options: {
                 plugins: {
@@ -92,6 +93,8 @@ crispy_forms_tags %} {% block content %}
                 }
             }
         });
+    }
+    initializeChart();
   </script>
   <script>
     const ctx2 = document.getElementById("demandBreakdown");
