@@ -42,19 +42,15 @@ crispy_forms_tags %} {% block content %}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
-    const ctx = document.getElementById("degreeProgramsChart");
-    const breakdownData = {{breakdown | safe}};
-    const labels = Object.keys(breakdownData);
-    const data = Object.values(breakdownData);
     Chart.plugins.register({
         afterDraw: function(chart) {
-        if (chart.data.datasets.length === 0) {
+          if (chart.data.datasets.length === 0) {
             // No data is present
           var ctx = chart.chart.ctx;
           var width = chart.chart.width;
           var height = chart.chart.height
           chart.clear();
-
+          
           ctx.save();
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -64,32 +60,37 @@ crispy_forms_tags %} {% block content %}
         }
       }
     });
+    
+    const ctx = document.getElementById("degreeProgramsChart").getContext('2d');
+    const breakdownData = {{breakdown | safe}};
+    const labels = Object.keys(breakdownData);
+    const data = Object.values(breakdownData);
         new Chart(ctx, {
-        type: "doughnut",
-        data: {
-            labels: labels,
-            datasets: [
-            {
-                label: "Demand Breakdown",
-                data: data,
-                borderWidth: 1,
-            },
-            ],
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Degree Programs',
-                    font: {
-                        size: 16
-                    }
+            type: "doughnut",
+            data: {
+                labels: labels,
+                datasets: [
+                {
+                    label: "Demand Breakdown",
+                    data: data,
+                    borderWidth: 1,
                 },
-                legend: {
-                    position: 'left' // or 'right'
+                ],
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Degree Programs',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        position: 'left' // or 'right'
+                    }
                 }
             }
-        }
         });
   </script>
   <script>
