@@ -42,7 +42,7 @@ crispy_forms_tags %} {% block content %}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
-    Chart.plugins.register({
+    Chart.register({
         afterDraw: function(chart) {
           if (chart.data.datasets.length === 0) {
             // No data is present
