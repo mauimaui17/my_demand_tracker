@@ -41,12 +41,7 @@ crispy_forms_tags %} {% block content %}
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <script>
-    const ctx = document.getElementById("degreeProgramsChart");
-    const breakdownData = {{breakdown | safe}};
-    const labels = Object.keys(breakdownData);
-    const data = Object.values(breakdownData);
     Chart.plugins.register({
         afterDraw: function(chart) {
         if (chart.data.datasets.length === 0) {
@@ -65,6 +60,12 @@ crispy_forms_tags %} {% block content %}
         }
       }
     });
+  </script>
+  <script>
+    const ctx = document.getElementById("degreeProgramsChart");
+    const breakdownData = {{breakdown | safe}};
+    const labels = Object.keys(breakdownData);
+    const data = Object.values(breakdownData);
         new Chart(ctx, {
         type: "doughnut",
         data: {
