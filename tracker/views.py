@@ -37,8 +37,6 @@ def coursepage(request):
         deg_prog_pop = Student.objects.filter(shopping_cart__id=course_id)
         breakdown = {}
 
-        # Assuming 'course_id' is the ID of the course you're interested in
-        # Query the Student model to get the count of students for each degree program
         deg_prog_counts = deg_prog_pop.values('student_deg_prog').annotate(count=Count('id'))
 
         # Iterate over the queryset and populate the breakdown dictionary
@@ -50,8 +48,8 @@ def coursepage(request):
         return render(request, 'tracker/course.html', {'course': course, 'users': deg_prog_pop, 'breakdown': breakdown})
     except Exception as e:
         error_message = f"Error: {str(e)}"  # Ensure error_message is properly formatted
-        return HttpResponse("<script>alert('An error occured.'); window.location.href='/';</script>")
-        #return JsonResponse({"message": error_message})
+        #return HttpResponse("<script>alert('An error occured.'); window.location.href='/';</script>")
+        return JsonResponse({"message": error_message})
     except Course.DoesNotExist:
         return HttpResponse("<script>alert('Course not found');  window.location.href='/';</script>")
 def profile(request):
