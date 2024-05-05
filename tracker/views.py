@@ -48,8 +48,8 @@ def coursepage(request):
         return render(request, 'tracker/course.html', {'course': course, 'users': deg_prog_pop, 'breakdown': breakdown})
     except Exception as e:
         error_message = f"Error: {str(e)}"  # Ensure error_message is properly formatted
-        #return HttpResponse("<script>alert('An error occured.'); window.location.href='/';</script>")
-        return JsonResponse({"message": error_message})
+        return HttpResponse("<script>alert('An error occured.'); window.location.href='/';</script>")
+        #return JsonResponse({"message": error_message})
     except Course.DoesNotExist:
         return HttpResponse("<script>alert('Course not found');  window.location.href='/';</script>")
 def profile(request):
