@@ -55,16 +55,16 @@
               },
               dataType: 'json',
               success: function(data) {
-                  var table = $('#course_table').DataTable().ajax.reload(null, false);
-                  //var row = table.row($('tr[data-id="' + course_id + '"]'));
+                  var table = $('#course_table').DataTable();
+                  var row = table.row($('tr[data-id="' + course_id + '"]'));
                   //if a row is found
-                  //if (row.any()){
-                      //var rowData = row.data();
-                      //rowData[4] = data.demand;
-                      //rowData[5] = data.priorities[0] + ' - ' + data.priorities[1] + ' - ' + data.priorities[2] + ' - ' + data.priorities[3];
-                     // row.data(rowData).draw();
-                  //}
-                  //$('tr[data-id="' + course_id + '"] .cart-button').html('<button class="btn btn-primary btn-sm" onclick="addToCart(\'' + course_id + '\')">Add to Cart</button>');
+                  if (row.any()){
+                      var rowData = row.data();
+                      rowData[4] = data.demand;
+                      rowData[5] = data.priorities[0] + ' - ' + data.priorities[1] + ' - ' + data.priorities[2] + ' - ' + data.priorities[3];
+                      row.data(rowData).draw();
+                  }
+                  $('tr[data-id="' + course_id + '"] .cart-button').html('<button class="btn btn-primary btn-sm" onclick="addToCart(\'' + course_id + '\')">Add to Cart</button>');
 
               },
               error: function(xhr, status, error) {
