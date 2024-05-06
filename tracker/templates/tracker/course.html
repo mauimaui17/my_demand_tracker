@@ -10,7 +10,9 @@ crispy_forms_tags %} {% block content %}
   <div class="column">
     <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
       <div class="row p-3">
-        <div class="col"><b> Course Title: </b> {{course.course_title}}</div>
+        <div class="col">
+          <b>Course Code:</b> {{course.subject_code.subject_code}} {{course.course_code}}
+        </div>
         <div class="col"><b>Demand:</b> {{users|length}}</div>
         <div class="col">
           {%if course.is_elective %} Elective {% else %} Not Elective {% endif %}
@@ -18,9 +20,11 @@ crispy_forms_tags %} {% block content %}
       </div>
       <div class="row p-3">
         <div class="col">
+          <b> Course Title: </b> {{course.course_title}}
+        </div>
+        <div class="col">
           <b>Course Description</b> {{course.course_description}}
         </div>
-        <div class="col"></div>
       </div>
     </div>
   </div>
