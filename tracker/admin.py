@@ -81,7 +81,7 @@ class CourseAdmin(admin.ModelAdmin):
         folder_path = './backups/'
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
-        backup_filename = f'{datetime.now().strftime('%Y_%m_%d-%H_%M_%S')}_reset_backup.sql'
+        backup_filename = f'{datetime.now().strftime("%Y_%m_%d-%H_%M_%S")}_reset_backup.sql'
         backup_filepath = os.path.join(folder_path, backup_filename)
         try:
             subprocess.run(['pg_dump', '-U', 'postgres', '-p', '5433', '-f', f'{backup_filepath}', 'demand_tracker'])
