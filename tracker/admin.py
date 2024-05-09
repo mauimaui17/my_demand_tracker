@@ -94,7 +94,7 @@ class CourseAdmin(admin.ModelAdmin):
             student.shopping_cart.clear()
         
         self.message_user(request, "All carts cleared and demands have been reset.", level='SUCCESS')
-
+        return current_state
     reset_demand.short_description = "Reset Demand and Purge Shopping Carts"
 class SubjectAdmin(admin.ModelAdmin):
     actions = ['generate_report']
