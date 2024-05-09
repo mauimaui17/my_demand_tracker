@@ -3,7 +3,6 @@ from .models import *
 # Register your models here.
 from django.contrib import admin
 from django.http import HttpResponse
-from .utils import generate_course_report
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib import colors
