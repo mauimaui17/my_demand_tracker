@@ -32,7 +32,7 @@ def build_pdf_report(queryset):
     #return build_pdf_report(data)
     # Create a BytesIO buffer to hold the PDF file
     response = HttpResponse(content_type='application/pdf')
-    response_content = f'attachment; filename="{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_report.pdf"'
+    response_content = f'attachment; filename="{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}_report.pdf"'
     response['Content-Disposition'] = response_content
 
     # Create a PDF document
