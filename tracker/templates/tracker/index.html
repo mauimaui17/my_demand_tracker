@@ -23,7 +23,7 @@
             <tbody>
                 {% for course in course_list %}
                 <tr data-id ="{{ course.id }}">
-                    <td align='center'>{{ course.department.college }}</td>
+                    <td align='center'>{{ course.college }}</td>
                     <td align='center'>{{ course.department.department_abbrev }}</td>
                     <td align='center'><a href="{% url 'coursepage' %}?course_id={{ course.id }}">{{ course.subject_code.subject_code }} {{ course.course_code }}</a></td>
                     <td align='center'>{{ course.course_title }}</td>

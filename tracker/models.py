@@ -36,6 +36,7 @@ class Subject(models.Model):
         return self.subject_code
 
 class Course(models.Model):
+    college = models.ForeignKey(College, on_delete=models.CASCADE, null= True, blank=True)
     subject_code = models.ForeignKey(Subject, on_delete=models.CASCADE, null= True, blank=True)
     course_code = models.CharField(max_length= 200)
     course_title = models.CharField(max_length= 200)
