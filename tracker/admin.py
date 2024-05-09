@@ -66,8 +66,8 @@ def build_pdf_report(queryset):
 
     
 class CourseAdmin(admin.ModelAdmin):
-    actions = ['generate_report', 'reset_demand']
-
+    actions = ['generate_report', 'reset_demand', 'set_college_from_dept']
+    
     def generate_report(self, request, queryset):
         return build_pdf_report(queryset)
     
@@ -96,6 +96,13 @@ class CourseAdmin(admin.ModelAdmin):
         self.message_user(request, "All carts cleared and demands have been reset.", level='SUCCESS')
         return current_state
     reset_demand.short_description = "Reset Demand and Purge Shopping Carts"
+    
+    def set_college_from_department(self, request, queryset):
+        for course in queryset:
+            course.college = course.department.college
+        self.message_user(request, "Set subjects' colleges.", level='SUCCESS')
+    set_college_from_department.short_description = "Set College of Course from Department's College"
+    
 class SubjectAdmin(admin.ModelAdmin):
     actions = ['generate_report']
     
