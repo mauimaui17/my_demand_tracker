@@ -86,10 +86,10 @@
         <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
             <div class="container-fluid">
               <!-- Navbar brand and toggle button for mobile -->
-              <a class="navbar-brand" href="/home">Home</a>
+              <a class="btn btn-outline-primary mr-2" href="/home">Home</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -98,7 +98,7 @@
                 <ul class="navbar-nav me-auto">
                   <!-- Catalog link -->
                   <li class="nav-item">
-                    <a class="nav-link" href="/">Catalog</a>
+                    <a class="btn btn-outline-primary" href="/">Catalog</a>
                   </li>
                 </ul>
                 <ul class='nav navbar-nav ms-auto w-100 justify-content-end'>
@@ -106,8 +106,8 @@
                     {% if user.is_authenticated %}
                     <!-- If user is logged in -->
                     <li class="nav-item">
-                        <span class="navbar-text me-3"><a class="nav-link" href="{% url 'profile' %}" >Welcome, {{ user.username }}</a></span>
-                        <span class="navbar-text me-3"><a class="nav-link" href="{% url 'logout' %}">Log out</a></span>
+                        <a class="btn btn-primary" href="/profile" role="button">Welcome, {{ user.username }}</a>
+                        <a class="btn btn-danger" href="/logout" role="button">Log Out</a>
                     </li>
                     {% else %}
                     <!-- If user is not logged in -->

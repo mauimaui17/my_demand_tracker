@@ -129,4 +129,4 @@ admin.site.register(Semester)
 admin.site.register(College)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(DegreeProgram)
-
+admin.site.register(Student)

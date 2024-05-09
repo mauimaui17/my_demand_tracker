@@ -46,13 +46,14 @@
         <table id="course_table" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Course Code</th>
-                    <th>Course Title</th>
-                    <th>Course Description</th>
-                    <th>Units</th>
-                    <th>Demand</th>
-                    <th>Is Elective</th>
-                    <th>Action</th>
+                    <th class="text-center">Course Code</th>
+                    <th class="text-center">Course Title</th>
+                    <th class="text-center">Course Description</th>
+                    <th class="text-center">Units</th>
+                    <th class="text-center">Demand</th>
+                    <th class="text-center">Breakdown (High-Low Prio)</th>
+                    <th class="text-center">Is Elective</th>
+                    <th class="text-center">Action</th>
                     <!-- Add additional columns if needed -->
                 </tr>
             </thead>
@@ -64,6 +65,7 @@
                     <td>{{ course.course_description }}</td>
                     <td>{{course.units}}</td>
                     <td align='center'>{{ course.demand }}</td>
+                    <td align='center'>{{ course.first_prio }} - {{ course.second_prio }} - {{ course.third_prio }} - {{ course.fourth_prio }}</td>
                     <td align='center'>
                         {%if course.is_elective %}
                             Elective

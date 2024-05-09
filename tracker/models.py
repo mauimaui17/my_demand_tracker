@@ -70,3 +70,11 @@ class Student(AbstractUser):
     def __str__(self):
         return self.username
     
+class Petition(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null= True, blank=True)
+    poster = models.ForeignKey(Student, on_delete=models.CASCADE, null= True, blank=True)
+    date_created = models.CharField(max_length=200, default="")
+    status = models.CharField(max_length=200, default="")
+    description = models.CharField(max_length=250, default="")
+
+
