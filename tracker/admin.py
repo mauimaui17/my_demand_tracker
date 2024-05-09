@@ -66,7 +66,7 @@ def build_pdf_report(queryset):
 
     
 class CourseAdmin(admin.ModelAdmin):
-    actions = ['generate_report', 'reset_demand', 'set_college_from_dept']
+    actions = ['generate_report', 'reset_demand', 'set_college_from_department']
     
     def generate_report(self, request, queryset):
         return build_pdf_report(queryset)
