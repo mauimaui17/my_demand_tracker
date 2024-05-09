@@ -100,6 +100,7 @@ class CourseAdmin(admin.ModelAdmin):
     def set_college_from_department(self, request, queryset):
         for course in queryset:
             course.college = course.department.college
+            course.save()
         self.message_user(request, "Set subjects' colleges.", level='SUCCESS')
     set_college_from_department.short_description = "Set College of Course from Department's College"
     
