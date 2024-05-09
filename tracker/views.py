@@ -137,9 +137,3 @@ def signup(request):
     else:
         form = RegisterForm()
     return render(request, "registration/signup.html", {"form":form})
-
-def admindash(request):
-    return render(request,'tracker/admindash.html')
-
-def generate_report(request):
-    print("lmao")
