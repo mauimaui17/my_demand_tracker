@@ -6,14 +6,43 @@
 
 {% block content %}
 <div class="container-fluid d-flex justify-content-center align-items-center">
-	<div class="shadow p-3 mb-5 bg-white rounded">
-		<div class="col-md-6" style='max-width: 350px;'>
-			<form method="POST" class="form-group" id='signup-form'>
-			{% csrf_token %}
-			{{ form|crispy }}
-			<button type="submit" class="btn btn-success">Register</button>
-			</form>
+	<div class='row p-2 justify-content-center'>
+		<div class="jumbotron" style="width: 70%;">
+			<h1 class="display-8">Data Privacy and Disclaimers</h1>
+			<p class="lead">This site was created by John Maui S. Borja, 
+				2020-12062, advisee of Associate Professor Jaime M. Samaniego, 
+				for his CMSC 191 - Undergraduate Special Problem course.</p>
+			<p class="lead">This site aims to provide demand information about elective subjects for 
+				forecasting, transparency, and course planning for students.
+				This site is in no way related to AMIS/SAIS. All subject information here are from publicly available lists provided by
+				the College of Arts and Sciences - Office of the College Secretary and College of Agriculture and College of Arts and Sciences.
+			</p>
+			<h3> Disclaimer: </h3>
+			<p class="lead">
+				This protoype does <b>not</b> guarantee any user a slot in any course. 
+				It only shows the user how many other students want to take a subject.
+				The demand data is crowdsourced and may not truly reflect true demand.
+				The authors of this site hereby declare that they shall not be held responsible for any consequences, mishaps, or undesirable outcomes that may occur subsequent to the use or reliance upon the information provided herein. Users are advised to exercise caution, discretion, and independent judgment when utilizing the content available on this site. By accessing this site, users acknowledge and accept that they assume all risks associated with their actions and decisions, and hereby waive any claims against the authors arising from such actions or decisions.
+			</p>
+			<hr class="my-4">
+			<p class="lead"> <b> Some of your data will be used for in-depth demand analysis, specifically your: </b></p>
+			<ul class="lead">
+				<li> Batch </li>
+				<li> Course </li>
+				<li> Degree Program </li>
+			</ul>
+			<p class="lead"> For more information regarding your data privacy, visit [PLACE DATA PRIVACY PAGE LINK HERE]. For any specific concerns, please contact the site author at <b>jsborja1@up.edu.ph</b>.</p>
 		</div>
+		<div class="shadow p-3 mb-5 bg-white rounded">
+			<div class="col-md-6" style='max-width: 350px;'>
+				<form method="POST" class="form-group" id='signup-form'>
+				{% csrf_token %}
+				{{ form|crispy }}
+				<button type="submit" class="btn btn-success">Register</button>
+				</form>
+			</div>
+		</div>
+
 	</div>
 </div>
 

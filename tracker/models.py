@@ -43,7 +43,7 @@ class Course(models.Model):
     demand = models.IntegerField(default= 0)
     is_elective = models.BooleanField(default= False)
     units = models.IntegerField(default= 3)
-    department = models.ManyToManyField(Department,related_name="department_subs", blank=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null= True, blank=True)
     sem_offered = models.ManyToManyField(Semester, related_name="semester_subs", blank=True)
     prereqs = models.ManyToManyField('self', symmetrical=False, blank=True)
     can_COI = models.BooleanField(default=False)

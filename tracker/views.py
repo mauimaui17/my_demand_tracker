@@ -12,6 +12,8 @@ from django.contrib.auth.views import LoginView
 from .forms import CustomAuthenticationForm
 from collections import defaultdict
 from django.db.models import Count
+from django.contrib.auth import login
+from .backend import EmailBackend
 class CustomLoginView(LoginView):
     authentication_form = CustomAuthenticationForm
 
@@ -126,13 +128,18 @@ def signup(request):
                     student.priority_level = 4
                 student.deg_prog = DegreeProgram.objects.get(degree_title=student.student_deg_prog)
                 student.save()
-                
+                login_student = EmailBackend().authenticate(request, form.cleaned_data['email'], form.cleaned_data['password1'])
+                login(request, login_student)
                 return redirect("/")
             except IntegrityError:
                 # Handle duplicate student ID error
-                
                 messages.error(request, "A student with this ID already exists.")
     else:
         form = RegisterForm()
     return render(request, "registration/signup.html", {"form":form})
 
+def admindash(request):
+    return render(request,'tracker/admindash.html')
+
+def generate_report(request):
+    print("lmao")

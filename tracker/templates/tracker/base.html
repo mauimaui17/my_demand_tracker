@@ -12,7 +12,7 @@
             $('#course_table').DataTable({lengthMenu:[5,10,15,20]});
         });
         $(document).ready( function () {
-            $('#trending_table').DataTable({lengthMenu:[5,10,15,20]});
+            $('#trending_table').DataTable({searching: false, paging: false, info: false});
         });
         
     </script>
@@ -89,7 +89,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container-fluid">
               <!-- Navbar brand and toggle button for mobile -->
-              <a class="navbar-brand" href="/">Home</a>
+              <a class="navbar-brand" href="/home">Home</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -98,7 +98,7 @@
                 <ul class="navbar-nav me-auto">
                   <!-- Catalog link -->
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Catalog</a>
+                    <a class="nav-link" href="/">Catalog</a>
                   </li>
                 </ul>
                 <ul class='nav navbar-nav ms-auto w-100 justify-content-end'>
