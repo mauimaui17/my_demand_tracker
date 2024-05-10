@@ -12,13 +12,7 @@
             $('#course_table').DataTable({
                 lengthMenu: [5, 10, 15, 20],
                 order: [[6, "desc"]],
-                responsive: true,
-                columnDefs: [
-                    {
-                        targets: [0, 1], // Index of the columns to hide (0-based index)
-                        visible: false // Set the columns to be hidden
-                    }
-                ]
+                responsive: true
             });
         });
         $(document).ready( function () {
