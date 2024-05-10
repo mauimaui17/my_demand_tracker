@@ -9,10 +9,10 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('#course_table').DataTable({lengthMenu:[5,10,15,20], order: [[6,"desc"]]});
+            $('#course_table').DataTable({lengthMenu:[5,10,15,20], order: [[6,"desc"]], responsive: true});
         });
         $(document).ready( function () {
-            $('#trending_table').DataTable({searching: false, paging: false, info: false});
+            $('#trending_table').DataTable({searching: false, paging: false, info: false, responsive: true});
         });
         
     </script>
