@@ -8,14 +8,18 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready( function () {
-            $('#course_table').DataTable({lengthMenu:[5,10,15,20], order: [[6,"desc"]], 
-            responsive: true,
-            "columnDefs": [
-            {
-                "targets": [0,1], // Index of the column to hide (0-based index)
-                "visible": false, // Set the column to be hidden
-            },});
+        $(document).ready(function() {
+            $('#course_table').DataTable({
+                lengthMenu: [5, 10, 15, 20],
+                order: [[6, "desc"]],
+                responsive: true,
+                columnDefs: [
+                    {
+                        targets: [0, 1], // Index of the columns to hide (0-based index)
+                        visible: false // Set the columns to be hidden
+                    }
+                ]
+            });
         });
         $(document).ready( function () {
             $('#trending_table').DataTable({searching: false, paging: false, info: false, responsive: true});
