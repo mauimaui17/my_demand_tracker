@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, DegreeProgram
+from .models import Student, DegreeProgram, Report, Course
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
@@ -43,3 +43,13 @@ class CustomAuthenticationForm(AuthenticationForm):
         super(CustomAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = 'Email Address'
         self.fields['password'].label = 'Password'
+        
+class UploadReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ['semester', 'academic_year', 'title', 'pdf_file']
+        
+class AddCourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['college','department', 'sem_offered', 'subject_code', 'course_code', 'course_title', 'course_description', 'prereqs', 'can_COI', 'is_elective']

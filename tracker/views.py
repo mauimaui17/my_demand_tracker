@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import Course, Student, DegreeProgram
-from .forms import RegisterForm
+from .models import Course, Student, DegreeProgram, Report
+from .forms import RegisterForm, UploadReportForm, AddCourseForm
 from django.contrib.auth.decorators import login_required
-import datetime
+from datetime import datetime
 from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.db import IntegrityError
 from django.contrib.auth.views import LoginView
 from .forms import CustomAuthenticationForm
-from collections import defaultdict
 from django.db.models import Count
 from django.contrib.auth import login
 from .backend import EmailBackend
+import os
 class CustomLoginView(LoginView):
     authentication_form = CustomAuthenticationForm
 
@@ -137,3 +137,44 @@ def signup(request):
     else:
         form = RegisterForm()
     return render(request, "registration/signup.html", {"form":form})
+
+def admindash(request):
+    return render(request, 'tracker/admindash.html')
+
+def upload_report(request):
+    if request.method == "POST":
+        form = UploadReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Report added successfully!')
+            return redirect('upload-report') 
+    else: 
+        form = UploadReportForm()
+    return render(request, 'admin-dash/upload_report.html', {'form': form})
+
+def add_course(request):
+    if request.method == "POST":
+        form = AddCourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Course added successfully!')
+            return redirect('add-course') 
+    else: 
+        form = AddCourseForm()
+    return render(request, 'admin-dash/add_course.html', {'form': form})
+
+def report_index(request):
+    all_reports = Report.objects.all()
+    return render(request, 'tracker/report_index.html', {'report_list': all_reports})
+
+def download_report(request):
+    file_path = request.GET.get('file_name')
+    print("HELLO"+file_path)
+    # Check if the file path is valid and the file exists
+    if file_path and os.path.exists(file_path):
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_path)}"'
+            return response
+    else:
+        return HttpResponse("File not found or invalid file path.", status=404)

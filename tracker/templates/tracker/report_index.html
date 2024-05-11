@@ -1,0 +1,40 @@
+{% extends "tracker/base.html" %}
+{% block title %}Subjects{% endblock %}
+{% block content %}
+<script>
+    $(document).ready(function() {
+        $('#reports_table').DataTable({
+            lengthMenu: [5, 10, 15, 20],
+            order: [[6, "desc"]],
+            responsive: true
+        });
+    });
+</script>
+<body>
+    <div class="container-fluid" id='catalog-container'>
+        <h1>Reports</h1>
+        <table id="reports_table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">Report</th>
+                    <th class="text-center">Academic Year</th>
+                    <th class="text-center">Semester</th>
+                    <th class="text-center">Upload Date</th>
+                    <!-- Add additional columns if needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in report_list %}
+                <tr data-id ="{{ report.id }}">
+                    <td align='center'><a href="/download-pdf/?file_name={{ report.pdf_file }}" target="_blank">{{ report.title}}</a></td>
+                    <td align='center'>{{report.academic_year}}</td>
+                    <td align='center'>{{report.semester}}</td>
+                    <td align='center'>{{report.upload_time}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+</body>
+</html>

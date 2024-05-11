@@ -53,9 +53,18 @@ class Course(models.Model):
     second_prio = models.IntegerField(default= 0)
     third_prio = models.IntegerField(default= 0)
     fourth_prio = models.IntegerField(default= 0)
+    
+    class Meta:
+        unique_together = ['subject_code', 'course_code']
     def __str__(self):
         return f'{self.subject_code.subject_code} {self.course_code}'
-    
+    def delete(self, *args, **kwargs):
+        # Delete all references to this course in the many-to-many relationships
+        self.sem_offered.clear()  # Clear sem_offered many-to-many relationship
+        self.prereqs.clear()  # Clear prereqs many-to-many relationship
+
+        # Call the parent class delete method to delete the course instance
+        super().delete(*args, **kwargs)
 class Student(AbstractUser):
     email = models.EmailField(unique=True)
     student_id = models.CharField(max_length=200, default="", unique=True)
@@ -74,8 +83,15 @@ class Student(AbstractUser):
 class Petition(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null= True, blank=True)
     poster = models.ForeignKey(Student, on_delete=models.CASCADE, null= True, blank=True)
-    date_created = models.CharField(max_length=200, default="")
+    date_created = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=200, default="")
     description = models.CharField(max_length=250, default="")
 
-
+class Report(models.Model):
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    academic_year = models.CharField(max_length=9)
+    pdf_file = models.FileField(upload_to='reports/')
+    title = models.CharField(max_length=200, default='')
+    upload_time = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"{self.academic_year} - {self.semester}"

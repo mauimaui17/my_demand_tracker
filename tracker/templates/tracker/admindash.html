@@ -1,0 +1,33 @@
+{% extends "tracker/base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="/upload-report" class="list-group-item list-group-item-action">Upload Report</a>
+                <a href="/add-course" class="list-group-item list-group-item-action">Add Course</a>
+
+            </div>
+        </div>
+        <!-- Central area -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <p>For more Administrator actions, please proceed to <a href='/admin'>the default Django admin page.</a></p>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% block central_area %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

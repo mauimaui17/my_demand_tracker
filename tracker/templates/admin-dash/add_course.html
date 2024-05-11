@@ -1,0 +1,16 @@
+{% extends 'tracker/admindash.html' %}
+{% load crispy_forms_tags %}
+{% block central_area %}
+<h2>Add Course</h2>
+<div class="container-fluid justify-content align-items-center">
+	<div class="shadow p-3 mb-5 bg-white rounded">
+		<div class="col">
+            <form method="post" class="from-group" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

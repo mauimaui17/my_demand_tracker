@@ -101,8 +101,11 @@
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                   <!-- Catalog link -->
+                  <li class="nav-item mr-2">
+                    <a class="btn btn-outline-primary" href="/catalog">Catalog</a>
+                  </li>
                   <li class="nav-item">
-                    <a class="btn btn-outline-primary" href="/">Catalog</a>
+                    <a class="btn btn-outline-primary" href="/reports">Reports</a>
                   </li>
                 </ul>
                 <ul class='nav navbar-nav ms-auto w-100 justify-content-end'>
@@ -110,7 +113,11 @@
                     {% if user.is_authenticated %}
                     <!-- If user is logged in -->
                     <li class="nav-item">
+                        {%if user.is_staff%}
+                        <a class="btn btn-primary" href="/admin-dash" role="button">Welcome, {{ user.username }}</a>
+                        {%else%}
                         <a class="btn btn-primary" href="/profile" role="button">Welcome, {{ user.username }}</a>
+                        {% endif %}
                         <a class="btn btn-danger" href="/logout" role="button">Log Out</a>
                     </li>
                     {% else %}
