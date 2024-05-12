@@ -13,5 +13,7 @@ urlpatterns = [
     path("", views.homepage, name="homepage"),
     path("home/", views.homepage, name="homepage"),
     path("reports/", views.report_index, name="reports"),
-    path("download-pdf/", views.download_report, name='download-pdf')
+    path("download-pdf/", views.download_report, name='download-pdf'),
+    path("site-statistics/", views.get_site_statistics, name='site-statistics')
+    
 ]

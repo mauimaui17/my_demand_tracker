@@ -13,23 +13,26 @@ crispy_forms_tags %} {% block content %}
         <div class="col">
           <b>Course Code:</b> {{course.subject_code.subject_code}} {{course.course_code}}
         </div>
-        <div class="col"><b>Demand:</b> {{users|length}}</div>
+        <div class="col"><b>Total Demand:</b> {{users|length}}</div>
         <div class="col">
-          {%if course.is_elective %} Elective {% else %} Not Elective {% endif %}
+          <b>Type: </b>{%if course.is_elective %} Elective {% else %} Not Elective {% endif %}
         </div>
+        <div class="col"><b>College:</b> {{course.college}}</div>
+        <div class="col"><b>Department:</b> {{course.department}}</div>
+
       </div>
       <div class="row p-3">
         <div class="col">
-          <b> Course Title: </b> {{course.course_title}}
+          <b>Course Title: </b> {{course.course_title}}
         </div>
         <div class="col">
-          <b>Course Description</b> {{course.course_description}}
+          <b>Course Description: </b> {{course.course_description}}
         </div>
       </div>
     </div>
   </div>
   <div class="container-fluid mb-5 shadow bg-white rounded">
-    <h3>Breakdown</h3>
+    <h3>Breakdown - {{course.subject_code.subject_code}} {{course.course_code}} </h3>
     <hr>
     {%if course.demand != 0%}
         <div class="row p-2">

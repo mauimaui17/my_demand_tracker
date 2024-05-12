@@ -24,6 +24,14 @@ def ajax_login_required(view):
             raise PermissionDenied
         return view(request, *args, **kwargs)
     return wrapper
+
+def admin_required(view):
+    @wraps(view)
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            raise PermissionDenied
+        return view(request, *args, **kwargs)
+    return wrapper
 # Create your views here.
 def index(request):
     all_courses = Course.objects.all()
@@ -54,6 +62,8 @@ def coursepage(request):
         #return JsonResponse({"message": error_message})
     except Course.DoesNotExist:
         return HttpResponse("<script>alert('Course not found');  window.location.href='/';</script>")
+
+@ajax_login_required
 def profile(request):
     return render(request, 'tracker/profile.html')
 
@@ -137,10 +147,10 @@ def signup(request):
     else:
         form = RegisterForm()
     return render(request, "registration/signup.html", {"form":form})
-
+@admin_required
 def admindash(request):
     return render(request, 'tracker/admindash.html')
-
+@admin_required
 def upload_report(request):
     if request.method == "POST":
         form = UploadReportForm(request.POST, request.FILES)
@@ -151,7 +161,7 @@ def upload_report(request):
     else: 
         form = UploadReportForm()
     return render(request, 'admin-dash/upload_report.html', {'form': form})
-
+@admin_required
 def add_course(request):
     if request.method == "POST":
         form = AddCourseForm(request.POST)
@@ -178,3 +188,17 @@ def download_report(request):
             return response
     else:
         return HttpResponse("File not found or invalid file path.", status=404)
+
+@admin_required
+def get_site_statistics(request):
+    student_pop = Student.objects.filter(is_staff=False)
+    deg_prog_counts = student_pop.values('student_deg_prog').annotate(count=Count('id'))
+    breakdown={}
+    # Iterate over the queryset and populate the breakdown dictionary
+    for deg_prog_count in deg_prog_counts:
+        deg_prog = deg_prog_count['student_deg_prog']
+        count = deg_prog_count['count']
+        breakdown[deg_prog] = count
+    course_count = Course.objects.all().count()
+    return render(request, 'admin-dash/site_stats.html', {'student_count': len(student_pop), 'course_count': course_count, 'breakdown': breakdown})
+    

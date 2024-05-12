@@ -1,0 +1,64 @@
+{% extends 'tracker/admindash.html' %}
+{% load crispy_forms_tags %}
+{% block central_area %}
+<h2>Site Statistics</h2>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container" id="catalog-container">
+  <div class="column">
+    <div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+      <div class="row p-3">
+        <div class="col">
+          <b>Number of Students:</b> {{student_count}}
+        </div>
+        <div class="col"><b>Number of Courses:</b> {{course_count}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mb-5 shadow bg-white rounded">
+    <h3>Breakdown</h3>
+    <hr>
+    <div class="w-50 mx-auto">
+        {%if course.demand != 0%}
+            <canvas id="degreeProgramsChart"></canvas>
+        {%else%}
+            No data available.
+        {% endif %}
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const ctx = document.getElementById("degreeProgramsChart").getContext('2d');
+    const breakdownData = {{ breakdown | safe }};
+    const labels = Object.keys(breakdownData);
+    const data = Object.values(breakdownData);
+
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Demand Breakdown",
+                data: data,
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Degree Programs',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    position: 'left' // or 'right'
+                }
+            }
+        }
+    });
+    
+  </script>
+{% endblock %}

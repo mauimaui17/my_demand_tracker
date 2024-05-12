@@ -15,6 +15,14 @@
                 responsive: true
             });
         });
+
+        $(document).ready(function() {
+            $('#reports_table').DataTable({
+                lengthMenu: [5, 10, 15, 20],
+                responsive: true
+            });
+        });
+
         $(document).ready( function () {
             $('#trending_table').DataTable({searching: false, paging: false, info: false, order: [[4, "desc"]], responsive: true});
         });
@@ -94,9 +102,6 @@
             <div class="container-fluid">
               <!-- Navbar brand and toggle button for mobile -->
               <a class="btn btn-outline-primary mr-2" href="/home">Home</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
               <!-- Navbar links -->
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
@@ -114,7 +119,7 @@
                     <!-- If user is logged in -->
                     <li class="nav-item">
                         {%if user.is_staff%}
-                        <a class="btn btn-primary" href="/admin-dash" role="button">Welcome, {{ user.username }}</a>
+                        <a class="btn btn-primary" href="/site-statistics" role="button">Welcome, {{ user.username }}</a>
                         {%else%}
                         <a class="btn btn-primary" href="/profile" role="button">Welcome, {{ user.username }}</a>
                         {% endif %}
