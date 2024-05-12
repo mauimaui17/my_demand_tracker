@@ -23,6 +23,7 @@
                 {% for report in report_list %}
                 <tr data-id ="{{ report.id }}">
                     <td align='center'><a href="/download-pdf/?file_name={{ report.pdf_file }}" target="_blank">{{ report.title}}</a></td>
+                    <td align='center'>{{report.description}}</td>
                     <td align='center'>{{report.academic_year}}</td>
                     <td align='center'>{{report.semester}}</td>
                     <td align='center'>{{report.upload_time}}</td>
