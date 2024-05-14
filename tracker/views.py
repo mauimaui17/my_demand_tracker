@@ -127,7 +127,7 @@ def signup(request):
                 student.username = student.first_name + " " + student.last_name
                 # student.student_id = form.cleaned_data['student_id']
                 student.batch = student.student_id[:4]
-                prio = datetime.date.today().year - int(student.batch)
+                prio = datetime.now().year - int(student.batch)
                 if(prio >= 4):
                     student.priority_level = 1
                 elif prio == 3:

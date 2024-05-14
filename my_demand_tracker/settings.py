@@ -26,7 +26,7 @@ SECRET_KEY = 'MP_:#-(brB~,6Y*U8t^cG7hHS+2"5[]Nx<aT/=Fn`e).z&3;kj'
 # SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "True"
+DEBUG = "False"
 ALLOWED_HOSTS = ["*"]
 
 SITE_ID = 1
