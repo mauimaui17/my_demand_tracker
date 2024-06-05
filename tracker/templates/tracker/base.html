@@ -38,8 +38,8 @@
               },
               dataType: 'json',
               success: function(data) {
-                console.log(data);
                   if (data.code && data.code == "full"){
+                    console.log(data.code);
                     alert(data.message);
                   } else {
                     var table = $('#course_table').DataTable();
