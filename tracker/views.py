@@ -69,18 +69,10 @@ def profile(request):
 
 @ajax_login_required
 def addToCart(request):
-    unit_max = 21
     course_id = request.GET.get('course_id')
-    cart_len = 0
     try:
         cart = request.user.shopping_cart.all()
-        # # cart_len = len(cart)
-        # # units = len(cart) * 3
-        # if units+3 > unit_max:
-        #     return JsonResponse({"message": "Your cart is full! Maximum 21 units only!", "code": 'full'})
-        # else:
         course = Course.objects.get(id=course_id)
-        
         if course not in cart:
             course.demand+=1
             if request.user.priority_level == 1:
@@ -97,7 +89,7 @@ def addToCart(request):
         else:
             return JsonResponse({"message": "Already in cart.", "demand": course.demand,  "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio]})
     except Exception as e:
-        return JsonResponse({'error': str(e), 'cart':cart_len}, status="400")
+        return JsonResponse({'error': str(e)}, status="400")
     
 @ajax_login_required
 def removeFromCart(request):
