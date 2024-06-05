@@ -47,7 +47,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 class UploadReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ['semester', 'academic_year', 'title', 'pdf_file']
+        fields = ['semester', 'academic_year', 'title','descriptiom', 'pdf_file']
         
 class AddCourseForm(forms.ModelForm):
     class Meta:
