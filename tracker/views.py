@@ -74,26 +74,26 @@ def addToCart(request):
     try:
         cart = request.user.shopping_cart.all()
         units = len(cart) * 3
-        if units > unit_max:
+        if units+3 > unit_max:
             return JsonResponse({"message": "Your cart is full! Maximum 21 units only!", "demand": course.demand, "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio], 'code': 'full'})
-
-        course = Course.objects.get(id=course_id)
-        
-        if course not in cart:
-            course.demand+=1
-            if request.user.priority_level == 1:
-                course.first_prio+=1
-            elif request.user.priority_level == 2:
-                course.second_prio+=1
-            elif request.user.priority_level == 3:
-                course.third_prio+=1
-            elif request.user.priority_level == 4:
-                course.fourth_prio+=1
-            course.save()
-            request.user.shopping_cart.add(course)
-            return JsonResponse({"message": "Demand has been updated. Subject added to cart.", "demand": course.demand, "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio]})
         else:
-            return JsonResponse({"message": "Already in cart.", "demand": course.demand,  "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio]})
+            course = Course.objects.get(id=course_id)
+            
+            if course not in cart:
+                course.demand+=1
+                if request.user.priority_level == 1:
+                    course.first_prio+=1
+                elif request.user.priority_level == 2:
+                    course.second_prio+=1
+                elif request.user.priority_level == 3:
+                    course.third_prio+=1
+                elif request.user.priority_level == 4:
+                    course.fourth_prio+=1
+                course.save()
+                request.user.shopping_cart.add(course)
+                return JsonResponse({"message": "Demand has been updated. Subject added to cart.", "demand": course.demand, "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio]})
+            else:
+                return JsonResponse({"message": "Already in cart.", "demand": course.demand,  "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio]})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status="400")
     
