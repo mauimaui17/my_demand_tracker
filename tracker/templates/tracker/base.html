@@ -42,16 +42,20 @@
                     alert(data.message);
                   } else {
                     var table = $('#course_table').DataTable();
+                    var currentPage = table.page(); // Store the current page
+    
                     var row = table.row($('tr[data-id="' + course_id + '"]'));
-                    //if a row is found
-                    if (row.any()){
+                    if (row.any()) {
                         var rowData = row.data();
                         rowData[6] = data.demand;
                         rowData[7] = data.priorities[0] + ' - ' + data.priorities[1] + ' - ' + data.priorities[2] + ' - ' + data.priorities[3];
-  
+    
                         row.data(rowData).draw();
                     }
+    
                     $('tr[data-id="' + course_id + '"] .cart-button').html('<button class="btn btn-danger btn-sm" onclick="removeFromCart(\'' + course_id + '\')">Remove from Cart</button>');
+    
+                    table.page(currentPage).draw(false);
                   }
               },
               error: function(xhr, status, error) {
