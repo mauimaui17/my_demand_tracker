@@ -75,7 +75,7 @@ def addToCart(request):
         cart = request.user.shopping_cart.all()
         units = len(cart) * 3
         if units+3 > unit_max:
-            return JsonResponse({"message": "Your cart is full! Maximum 21 units only!", "demand": course.demand, "priorities": [course.first_prio, course.second_prio, course.third_prio, course.fourth_prio], 'code': 'full'})
+            return JsonResponse({"message": "Your cart is full! Maximum 21 units only!", 'code': 'full'})
         else:
             course = Course.objects.get(id=course_id)
             
